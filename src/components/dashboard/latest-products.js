@@ -52,7 +52,7 @@ export const LatestProducts = (props) => (
   <Card {...props}>
     <CardHeader
       subtitle={`${products.length} in total`}
-      title="Latest Products"
+      title="Latest Documents"
     />
     <Divider />
     <List>
@@ -75,12 +75,6 @@ export const LatestProducts = (props) => (
             primary={product.name}
             secondary={`Updated ${formatDistanceToNow(product.updatedAt)}`}
           />
-          <IconButton
-            edge="end"
-            size="small"
-          >
-            <MoreVertIcon />
-          </IconButton>
         </ListItem>
       ))}
     </List>

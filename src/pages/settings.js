@@ -1,14 +1,13 @@
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { SettingsNotifications } from '../components/settings/settings-notifications';
 import { SettingsPassword } from '../components/settings/settings-password';
 
 const Page = () => (
   <>
     <Head>
       <title>
-        Settings | Material Kit
+        Settings | DocCenter
       </title>
     </Head>
     <Box
@@ -25,7 +24,6 @@ const Page = () => (
         >
           Settings
         </Typography>
-        <SettingsNotifications />
         <Box sx={{ pt: 3 }}>
           <SettingsPassword />
         </Box>
