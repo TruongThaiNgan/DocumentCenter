@@ -10,6 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
   const dispatch = useDispatch();
+
+  const test = useSelector(state => state.authReducer.test);
+
+  console.log('test ' + test);
+
   const formik = useFormik({
     initialValues: {
       email: '',
