@@ -5,12 +5,15 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { login } from "../redux/actions/authentications";
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      email: 'username@company',
-      password: 'Password123'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -23,10 +26,13 @@ const Login = () => {
         .max(255)
         .required('Password is required')
     }),
-    onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+    onSubmit: async (values) => {
+      console.log('onSubmit');
+      dispatch({type: 'LOG_IN'});
+      console.log('1');
+      // Router
+      //   .push('/')
+      //   .catch(console.error);
     }
   });
 
@@ -79,7 +85,7 @@ const Login = () => {
               helperText={formik.touched.email && formik.errors.email}
               label="User name"
               margin="normal"
-              name="username"
+              name="email"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="text"

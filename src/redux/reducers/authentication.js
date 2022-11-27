@@ -1,14 +1,17 @@
 const initialState = {
-    
+    test: 1
 }
 
 function authReducer(state = initialState, action) {
-    switch (key) {
-        case value:
+    // switch (action) {
+    //     case value:
             
-            break;
+    //         break;
     
-        default:
-            break;
-    }
+    //     default:
+    //         break;
+    // }
+    return state;
 }
+
+export default authReducer;
