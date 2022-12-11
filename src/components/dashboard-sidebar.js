@@ -23,6 +23,11 @@ const items = [
     title: 'Dashboard'
   },
   {
+    href: '/roles',
+    icon: (<SelectorIcon fontSize="small" />),
+    title: 'Roles'
+  },
+  {
     href: '/members',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Members'
@@ -42,30 +47,17 @@ const items = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Settings'
   },
-  // {
-  //   href: '/login',
-  //   icon: (<LockIcon fontSize="small" />),
-  //   title: 'Login'
-  // },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-  // {
-  //   href: '/404',
-  //   icon: (<XCircleIcon fontSize="small" />),
-  //   title: 'Error'
-  // }
 ];
 
 export const DashboardSidebar = (props) => {
-  const { open, onClose } = props;
+  const { open, onClose, name, roles } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
   });
+
+  const rolesName = roles.reduce((accumulator, currentValue) => `${accumulator} ${currentValue.name ?? ''},`, '')
 
   useEffect(
     () => {
@@ -141,7 +133,7 @@ export const DashboardSidebar = (props) => {
                   color="inherit"
                   variant="subtitle1"
                 >
-                  Silas
+                  {name}
                 </Typography>
                 <Typography
                   color="neutral.400"
@@ -149,7 +141,7 @@ export const DashboardSidebar = (props) => {
                 >
                   Your role
                   {' '}
-                  : Admin
+                  : {rolesName}
                 </Typography>
               </div>
               

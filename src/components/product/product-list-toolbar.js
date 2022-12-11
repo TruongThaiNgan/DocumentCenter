@@ -12,7 +12,14 @@ import { Download as DownloadIcon } from '../../icons/download';
 import { Search as SearchIcon } from '../../icons/search';
 import { Upload as UploadIcon } from '../../icons/upload';
 
-export const ProductListToolbar = (props) => (
+export const ProductListToolbar = (props) => {
+  
+  const handleCreateDocBtn = async () => {
+    router.push('/create-doc')
+  }
+
+
+  return (
   <Box {...props}>
     <Box
       sx={{
@@ -33,6 +40,7 @@ export const ProductListToolbar = (props) => (
         <Button
           color="primary"
           variant="contained"
+          onClick={handleCreateDocBtn}
         >
           Add products
         </Button>
@@ -64,4 +72,4 @@ export const ProductListToolbar = (props) => (
       </Card>
     </Box>
   </Box>
-);
+)};

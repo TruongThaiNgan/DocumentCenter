@@ -105,9 +105,9 @@ const Register = () => {
               error={Boolean(formik.touched.firstName && formik.errors.firstName)}
               fullWidth
               helperText={formik.touched.firstName && formik.errors.firstName}
-              label="First Name"
+              label="User Name"
               margin="normal"
-              name="firstName"
+              name="userName"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               value={formik.values.firstName}
@@ -117,9 +117,9 @@ const Register = () => {
               error={Boolean(formik.touched.lastName && formik.errors.lastName)}
               fullWidth
               helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Last Name"
+              label="Name"
               margin="normal"
-              name="lastName"
+              name="name"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               value={formik.values.lastName}
@@ -200,24 +200,6 @@ const Register = () => {
                 Sign Up Now
               </Button>
             </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              Have an account?
-              {' '}
-              <NextLink
-                href="/login"
-                passHref
-              >
-                <Link
-                  variant="subtitle2"
-                  underline="hover"
-                >
-                  Sign In
-                </Link>
-              </NextLink>
-            </Typography>
           </form>
         </Container>
       </Box>

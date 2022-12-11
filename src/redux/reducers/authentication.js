@@ -1,23 +1,40 @@
-import { LOG_IN } from "../actions/types";
+import { GET_USER_SESSION_STORAGE, LOG_IN, LOG_IN_SUCCESS, LOG_OUT } from "../actions/types";
 
 const initialState = {
-    test: 1
+    user: null
 }
 
 function authReducer(state = initialState, action) {
-    console.log('authReducer' + JSON.stringify(action));
     switch (action.type) {
         case LOG_IN:
-            console.log('LOG_IN');
             return {
                 ...state,
-                test: state.test +1,
             }
+
+        case GET_USER_SESSION_STORAGE: {
+            return {
+                ...state,
+                user: action.data
+            }
+        }
+
+        case LOG_IN_SUCCESS: {
+            return {
+                ...state,
+                user: action.data,
+            }
+        }
+
+        case LOG_OUT: {
+            return {
+                ...state,
+                user: null,
+            }
+        }
     
         default:
-            break;
+            return state;
     }
-    return state;
 }
 
 export default authReducer;

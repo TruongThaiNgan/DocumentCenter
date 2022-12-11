@@ -3,6 +3,7 @@ import {
     LOG_IN_SUCCESS,
     LOG_IN_FAIL,
     LOG_OUT,
+    GET_USER_SESSION_STORAGE,
 } from "./types";
 
 export function login(username, password) {
@@ -30,4 +31,11 @@ export function logOut() {
     return {
         type: LOG_OUT,
     };
-}
+};
+
+export function sessionStorage(user) {
+    return {
+        type: GET_USER_SESSION_STORAGE,
+        data: user
+    };
+};

@@ -47,13 +47,7 @@ export const AccountProfile = (props) => (
           color="textSecondary"
           variant="body2"
         >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.timezone}
+          Admin
         </Typography>
       </Box>
     </CardContent>

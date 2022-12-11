@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -10,7 +10,8 @@ import { createEmotionCache } from '../utils/create-emotion-cache';
 import { registerChartJs } from '../utils/register-chart-js';
 import { theme } from '../theme';
 import { wrapper } from '../redux/index';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
+import { sessionStorage } from '../redux/actions/authentications';
 
 registerChartJs();
 
@@ -37,20 +38,34 @@ const App = ({Component, ...rest}) => {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AuthProvider>
-              <AuthConsumer>
-                {
-                  (auth) => auth.isLoading
-                    ? <Fragment />
-                    : getLayout(<Component {...pageProps} />)
-                }
-              </AuthConsumer>
-            </AuthProvider>
+              <AuthSession>
+                {getLayout(<Component {...pageProps} />)}
+              </AuthSession>
           </ThemeProvider>
         </LocalizationProvider>
       </CacheProvider>
     </Provider>
   );
+};
+
+const AuthSession = props => {
+  const dispatch = useDispatch();
+
+  const initialize = async () => {
+    var user = null;
+    if (typeof window !== 'undefined') {
+      user = JSON.parse(window.sessionStorage.getItem('user'));
+    }
+
+    dispatch(sessionStorage(user))
+
+  };
+
+  useEffect(() => {
+    initialize();
+  });
+
+  return props.children;
 };
 
 export default App;

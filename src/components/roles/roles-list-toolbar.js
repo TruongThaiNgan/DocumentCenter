@@ -7,16 +7,21 @@ import {
   InputAdornment,
   SvgIcon, Typography
 } from '@mui/material';
-import { Search as SearchIcon } from '../../icons/search';
 import { useRouter } from 'next/router';
+import { Search as SearchIcon } from '../../icons/search';
 
 export const CustomerListToolbar = (props) => {
+
   const router = useRouter();
 
-  const handleCreateMemberBtn = async () => {
-    router.push('/create-member')
+  const handleCreateRoleBtn = async () => {
+    router.push('/create-role')
   }
+
   return (
+
+
+
   <Box {...props}>
     <Box
       sx={{
@@ -31,15 +36,15 @@ export const CustomerListToolbar = (props) => {
         sx={{ m: 1 }}
         variant="h4"
       >
-        Members
+        Roles
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button
           color="primary"
           variant="contained"
-          onClick={handleCreateMemberBtn}
+          onClick={handleCreateRoleBtn}
         >
-          Add Members
+          Add Roles
         </Button>
       </Box>
     </Box>
@@ -61,7 +66,7 @@ export const CustomerListToolbar = (props) => {
                   </InputAdornment>
                 )
               }}
-              placeholder="Search member"
+              placeholder="Search roles"
               variant="outlined"
             />
           </Box>

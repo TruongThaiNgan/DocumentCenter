@@ -7,9 +7,9 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { login } from "../redux/actions/authentications";
 import { useDispatch, useSelector } from 'react-redux';
-import { LoginGuard } from '../components/login-guard';
+import { AuthGuard } from '../components/auth-guard';
 
-const Login = () => {
+const CreateMember = () => {
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -34,9 +34,9 @@ const Login = () => {
   });
 
   return (
-    <LoginGuard>
+    <>
       <Head>
-        <title>Login | DocCenter</title>
+        <title>Create member | DocCenter</title>
       </Head>
       <Box
         component="main"
@@ -65,14 +65,7 @@ const Login = () => {
                 color="textPrimary"
                 variant="h4"
               >
-                Sign in
-              </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-                Sign in on the internal platform
+                Create role
               </Typography>
             </Box>
             
@@ -80,13 +73,25 @@ const Login = () => {
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
               helperText={formik.touched.email && formik.errors.email}
-              label="User name"
+              label="Name"
               margin="normal"
-              name="email"
+              name="name"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="text"
               value={formik.values.email}
+              variant="outlined"
+            />
+            <TextField
+              error={Boolean(formik.touched.password && formik.errors.password)}
+              fullWidth
+              helperText={formik.touched.password && formik.errors.password}
+              label="Email"
+              margin="normal"
+              name="email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.password}
               variant="outlined"
             />
             <TextField
@@ -98,7 +103,18 @@ const Login = () => {
               name="password"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              type="password"
+              value={formik.values.password}
+              variant="outlined"
+            />
+            <TextField
+              error={Boolean(formik.touched.password && formik.errors.password)}
+              fullWidth
+              helperText={formik.touched.password && formik.errors.password}
+              label="Roles"
+              margin="normal"
+              name="roles"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
               value={formik.values.password}
               variant="outlined"
             />
@@ -111,35 +127,15 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
-                Sign In Now
+                Create
               </Button>
             </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              Don&apos;t have an account?
-              {' '}
-              <NextLink
-                href="/register"
-              >
-                <Link
-                  to="/register"
-                  variant="subtitle2"
-                  underline="hover"
-                  sx={{
-                    cursor: 'pointer'
-                  }}
-                >
-                  Sign Up
-                </Link>
-              </NextLink>
-            </Typography>
+
           </form>
         </Container>
       </Box>
-    </LoginGuard>
+    </>
   );
 };
 
-export default Login;
+export default CreateMember;

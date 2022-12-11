@@ -4,25 +4,24 @@ import { loginFail, loginSuccess } from '../actions/authentications';
 import { LOG_IN } from "../actions/types";
 const host = process.env.API;
 
+
 function loginApi(params) {
-    return axios.post({url: `${host}/login`, data: params})
+    axios.defaults.baseURL = 'http://localhost:8080';
+    return axios.post('/sign-in', params)
 }
 
 function* loginServices(params) {
-console.log('services');
-
-    // const res = yield call(loginApi, params);
-    
-    // if (res.status == 200) {
-        // loginSuccess();
-    // } else {
-    //     loginFail(res.data);
-    // }
+    const res = yield call(loginApi, params.data);
+    if (res.status >= 200 && res.status <= 300) {
+        sessionStorage.setItem('user', JSON.stringify(res.data));
+        yield put(loginSuccess(res.data));
+    } else {
+        yield put(loginFail(res.data));
+    }
 }
 
 function* service() {
-    console.log('service');
-    yield takeEvery('LOG_IN', loginServices)
+    yield takeLatest(LOG_IN, loginServices)
 }
 
 export default service;

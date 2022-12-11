@@ -3,20 +3,19 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-export const AuthGuard = (props) => {
+export const LoginGuard = (props) => {
   const { children } = props;
   const router = useRouter();
-  const isAuthenticated = useSelector((state) => state.authReducer.user)
   const [checked, setChecked] = useState(false);
+  const isAuthenticated = useSelector((state) => state.authReducer.user)
 
   useEffect(
     () => {
-      if (!isAuthenticated) {
-        console.log('Not authenticated, redirecting');
+      if (isAuthenticated) {
         router
           .replace({
-            pathname: '/login',
-            query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
+            pathname: '/',
+            query: router.asPath !== '/login' ? { continueUrl: router.asPath } : undefined
           })
           .catch(console.error);
       } else {
@@ -30,12 +29,9 @@ export const AuthGuard = (props) => {
     return null;
   }
 
-  // If got here, it means that the redirect did not occur, and that tells us that the user is
-  // authenticated / authorized.
-
   return children;
 };
 
-AuthGuard.propTypes = {
+LoginGuard.propTypes = {
   children: PropTypes.node
 };

@@ -15,9 +15,8 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
+export const CustomerListResults = ({ roles, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -26,7 +25,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedCustomerIds = roles.map((customer) => customer.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -71,11 +70,11 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedCustomerIds.length === roles.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      && selectedCustomerIds.length < roles.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -84,15 +83,15 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Name
                 </TableCell>
                 <TableCell>
-                  Email
+                  Amount
                 </TableCell>
                 <TableCell>
-                  Role
+                  Updated
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {roles.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -106,37 +105,13 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     />
                   </TableCell>
                   <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {customer.name}
-                      </Typography>
-                    </Box>
+                    {customer.name}
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {customer.amount}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                  </TableCell>
-                  <TableCell>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                    {format(Date.parse(customer.createAt), 'dd/MM/yyyy')}
                   </TableCell>
                 </TableRow>
               ))}
@@ -146,7 +121,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={roles.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -158,5 +133,5 @@ export const CustomerListResults = ({ customers, ...rest }) => {
 };
 
 CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+  roles: PropTypes.array.isRequired
 };

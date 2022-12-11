@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { AuthGuard } from './auth-guard';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
+import { useSelector } from 'react-redux';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -18,6 +19,7 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
 export const DashboardLayout = (props) => {
   const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const user = useSelector((state) => state.authReducer.user);
 
   return (
     <AuthGuard>
@@ -37,6 +39,8 @@ export const DashboardLayout = (props) => {
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
+        name={user?.name ?? ''}
+        roles={user?.roles ?? []}
       />
     </AuthGuard>
   );
