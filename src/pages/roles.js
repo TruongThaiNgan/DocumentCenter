@@ -16,7 +16,7 @@ const Page = () => {
 
   useEffect(() => {
     if (user != null) {
-      dispatch(getRoles(user.id))
+      dispatch(getRoles(user.companyId))
     }
   }, []);
 

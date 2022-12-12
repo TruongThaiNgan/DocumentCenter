@@ -2,7 +2,6 @@ import axios from "axios";
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import { getRolesFails, getRolesSuccess } from "../actions/roles";
 import { GET_ROLES } from "../actions/types";
-const host = process.env.API;
 
 
 function getRoleApi(id) {

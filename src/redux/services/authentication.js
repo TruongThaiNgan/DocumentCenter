@@ -2,7 +2,6 @@ import axios from "axios";
 import { takeLatest, call, put, takeEvery } from 'redux-saga/effects'
 import { loginFail, loginSuccess } from '../actions/authentications';
 import { LOG_IN } from "../actions/types";
-const host = process.env.API;
 
 
 function loginApi(params) {
