@@ -15,21 +15,20 @@ const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: ''
+      username: ''
     },
     validationSchema: Yup.object({
-      email: Yup
+      username: Yup
         .string()
-        .email('Must be a valid email')
         .max(255)
-        .required('Email is required'),
+        .required('User name is required'),
       password: Yup
         .string()
         .max(255)
         .required('Password is required')
     }),
     onSubmit: async (values) => {
-      dispatch(login(values.email, values.password));
+      dispatch(login(values.username, values.password));
     }
   });
 
@@ -77,16 +76,16 @@ const Login = () => {
             </Box>
             
             <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
+              error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
+              helperText={formik.touched.username && formik.errors.username}
               label="User name"
               margin="normal"
-              name="email"
+              name="username"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="text"
-              value={formik.values.email}
+              value={formik.values.username}
               variant="outlined"
             />
             <TextField
