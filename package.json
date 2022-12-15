@@ -27,6 +27,7 @@
     "chart.js": "3.9.1",
     "date-fns": "2.29.3",
     "formik": "2.2.9",
+    "javascript-time-ago": "^2.5.9",
     "next": "12.3.0",
     "next-redux-saga": "^4.1.2",
     "next-redux-wrapper": "^8.0.0",

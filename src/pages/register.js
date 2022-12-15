@@ -14,46 +14,43 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useDispatch } from 'react-redux';
+import { signUp } from '../redux/actions/authentications';
 
 const Register = () => {
+
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
-      email: '',
-      firstName: '',
-      lastName: '',
+      name: '',
+      username: '',
+      confirmPassword: '',
       password: '',
-      policy: false
     },
     validationSchema: Yup.object({
-      email: Yup
+      username: Yup
         .string()
-        .email('Must be a valid email')
         .max(255)
         .required(
           'Email is required'),
-      firstName: Yup
+      name: Yup
         .string()
         .max(255)
-        .required('First name is required'),
-      lastName: Yup
+        .required('Name is required'),
+      confirmPassword: Yup
         .string()
         .max(255)
-        .required('Last name is required'),
+        .required('Confirm password is required').oneOf([Yup.ref('password'), null], 'Passwords must match'),
       password: Yup
         .string()
         .max(255)
         .required('Password is required'),
-      policy: Yup
-        .boolean()
-        .oneOf(
-          [true],
-          'This field must be checked'
-        )
     }),
-    onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+    onSubmit: (values) => {
+      dispatch(signUp({
+        username: values.username,name: values.name,password: values.password,
+      }))
     }
   });
 
@@ -75,14 +72,14 @@ const Register = () => {
       >
         <Container maxWidth="sm">
           <NextLink
-            href="/"
+            href="/login"
             passHref
           >
             <Button
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Log in
             </Button>
           </NextLink>
           <form onSubmit={formik.handleSubmit}>
@@ -93,49 +90,29 @@ const Register = () => {
               >
                 Create a new account
               </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-                Use your email to create a new account
-              </Typography>
             </Box>
             <TextField
-              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+              error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
+              helperText={formik.touched.username && formik.errors.username}
               label="User Name"
               margin="normal"
-              name="userName"
+              name="username"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.firstName}
+              value={formik.values.username}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+              error={Boolean(formik.touched.name && formik.errors.name)}
               fullWidth
-              helperText={formik.touched.lastName && formik.errors.lastName}
+              helperText={formik.touched.name && formik.errors.name}
               label="Name"
               margin="normal"
               name="name"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.lastName}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
-              fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
-              margin="normal"
-              name="email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
+              value={formik.values.name}
               variant="outlined"
             />
             <TextField
@@ -151,43 +128,19 @@ const Register = () => {
               value={formik.values.password}
               variant="outlined"
             />
-            <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex',
-                ml: -1
-              }}
-            >
-              <Checkbox
-                checked={formik.values.policy}
-                name="policy"
-                onChange={formik.handleChange}
-              />
-              <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                I have read the
-                {' '}
-                <NextLink
-                  href="#"
-                  passHref
-                >
-                  <Link
-                    color="primary"
-                    underline="always"
-                    variant="subtitle2"
-                  >
-                    Terms and Conditions
-                  </Link>
-                </NextLink>
-              </Typography>
-            </Box>
-            {Boolean(formik.touched.policy && formik.errors.policy) && (
-              <FormHelperText error>
-                {formik.errors.policy}
-              </FormHelperText>
-            )}
+            <TextField
+              error={Boolean(formik.touched.confirmPassword && formik.errors.confirmPassword)}
+              fullWidth
+              helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+              label="Confirm Password"
+              margin="normal"
+              name="confirmPassword"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="password"
+              value={formik.values.confirmPassword}
+              variant="outlined"
+            />
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
